@@ -1,4 +1,5 @@
 import React from "react";
+import DeleteForeverRoundedIcon from "@material-ui/icons/DeleteForeverRounded";
 
 const DeleteTodo = ({ id, setLastActivity }) => {
   const deleteTodo = () => {
@@ -13,7 +14,12 @@ const DeleteTodo = ({ id, setLastActivity }) => {
       });
   };
 
-  return <button onClick={deleteTodo}> x </button>;
+  return (
+    <DeleteForeverRoundedIcon onClick={deleteTodo}>
+      {" "}
+      x{" "}
+    </DeleteForeverRoundedIcon>
+  );
 };
 
 export default DeleteTodo;

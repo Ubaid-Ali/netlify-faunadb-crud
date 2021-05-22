@@ -1,6 +1,29 @@
 import React, { useState } from "react";
 
+// MATERIAL UI
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "25ch",
+    },
+  },
+  TextField: {
+    width: "80%",
+  },
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
+
 const AddTodo = ({ setLastActivity }) => {
+  const classes = useStyles();
+
+  // ON-CHANGE STATE
   const [todo, setTodo] = useState({
     title: "",
     completed: false,
@@ -26,16 +49,34 @@ const AddTodo = ({ setLastActivity }) => {
   // RETRUN
   return (
     <div className="App">
-      <form onSubmit={submitHandler}>
-        <input
+      <form
+        onSubmit={submitHandler}
+        className={classes.root}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          className={classes.TextField}
           type="text"
+          id="outlined-secondary"
+          label="Type here"
+          variant="outlined"
+          color="primary"
           value={todo.title}
           onChange={(e) => {
             setTodo({ ...todo, title: e.target.value });
           }}
+          required
         />
         <br />
-        <input type="submit" value="Add Todo" />
+        <Button
+          type="submit"
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+        >
+          AddTodo
+        </Button>
       </form>
     </div>
   );
