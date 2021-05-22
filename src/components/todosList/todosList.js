@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import DeleteTodo from "../deleteTodo/deleteTodo";
 
 // Api
 export const TodoListFetcher = async () => {
@@ -7,7 +8,7 @@ export const TodoListFetcher = async () => {
 };
 
 //
-const TodosList = ({ lastActivity }) => {
+const TodosList = ({ lastActivity, setLastActivity }) => {
   const [allTodos, setAllTodos] = useState([]);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const TodosList = ({ lastActivity }) => {
             return (
               <li key={id} id={id}>
                 <span>{title}</span> <span>{JSON.stringify(completed)}</span>{" "}
-                <span>x</span>
+                <DeleteTodo id={id} setLastActivity={setLastActivity} />
               </li>
             );
           })}

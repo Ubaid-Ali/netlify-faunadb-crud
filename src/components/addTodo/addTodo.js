@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
-import TodoListFetcher from "../todosList/todosList";
-
-const AddTodo = ({setLastActivity}) => {
+const AddTodo = ({ setLastActivity }) => {
   const [todo, setTodo] = useState({
     title: "",
     completed: false,
@@ -10,22 +8,22 @@ const AddTodo = ({setLastActivity}) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(`Submit Function`);
+    console.log(`New todo is going to add`);
     fetch("/.netlify/functions/todo-create", {
       method: "post",
       body: JSON.stringify(todo),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(`Todo Added Successfully : `, JSON.stringify(data));
-        setLastActivity(data.messageId)
+        console.log(`Todo Added: Successfully!`);
+        setLastActivity(data.messageId);
       })
       .catch((error) =>
         console.log(`Somthing wrong when trying Add Todo`, error)
       );
   };
 
-  // console.log(`todo`, todo);
+  // RETRUN
   return (
     <div className="App">
       <form onSubmit={submitHandler}>

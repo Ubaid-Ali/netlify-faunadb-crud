@@ -4,15 +4,15 @@ import "./App.css";
 import AddTodo from "./components/addTodo/addTodo";
 import TodosList from "./components/todosList/todosList";
 function App() {
-
-  const [lastActivity, setLastActivity] = useState("");
+  const [lastActivity, setLastActivity] = useState(""); //todo id
 
   return (
-    <div className="App">
-      <div className="App-header">
-        <AddTodo setLastActivity={setLastActivity} />
-        <TodosList lastActivity={lastActivity} setLastActivity={setLastActivity} />
-      </div>
+    <div className="App-container">
+      <AddTodo setLastActivity={setLastActivity} />
+      <TodosList
+        lastActivity={lastActivity}
+        setLastActivity={setLastActivity}
+      />
     </div>
   );
 }
