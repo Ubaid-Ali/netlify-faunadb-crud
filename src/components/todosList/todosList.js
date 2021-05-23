@@ -28,7 +28,7 @@ export const TodoListFetcher = async () => {
   return await response.json();
 };
 
-// Main Component
+// Main Component Start
 const TodosList = ({ lastActivity, setLastActivity }) => {
   const [allTodos, setAllTodos] = useState([]);
 
@@ -56,12 +56,12 @@ const TodosList = ({ lastActivity, setLastActivity }) => {
       .catch((error) => console.log(`error`, error));
   }, [lastActivity]);
 
-  console.log(`checked`, checked);
+  // Main Component Return
   return (
     <div>
       <List className={classes.root}>
         {allTodos.map((todo) => {
-          const { title, completed } = todo.data;
+          const { title } = todo.data;
           const { id } = todo.ref["@ref"];
           const labelId = `checkbox-list-label-${id}`;
 

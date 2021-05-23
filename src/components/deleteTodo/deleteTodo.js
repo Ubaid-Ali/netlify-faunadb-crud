@@ -9,7 +9,7 @@ const DeleteTodo = ({ id, setLastActivity }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(`Todo Deleted: Successfully!`, result);
+        console.log(`Todo Deleted: Successfully!`);
         setLastActivity(result);
       });
   };

@@ -40,7 +40,7 @@ const UpdataTodo = ({ id, title, setLastActivity }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(`Todo Updated: Successfully!`, result);
+        console.log(`Todo Updated: result!`);
         setLastActivity(result);
       });
   };
