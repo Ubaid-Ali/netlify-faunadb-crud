@@ -8,10 +8,10 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
-import EditRoundedIcon from "@material-ui/icons/EditRounded";
 
 // component
 import DeleteTodo from "../deleteTodo/deleteTodo";
+import UpdateTodo from "../updataTodo/updataTodo";
 
 // material ui css
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +28,7 @@ export const TodoListFetcher = async () => {
   return await response.json();
 };
 
-//
+// Main Component
 const TodosList = ({ lastActivity, setLastActivity }) => {
   const [allTodos, setAllTodos] = useState([]);
 
@@ -51,13 +51,12 @@ const TodosList = ({ lastActivity, setLastActivity }) => {
   useEffect(() => {
     TodoListFetcher()
       .then((data) => {
-        // console.log("Success TodoList", data.data[0].ref["@ref"].id);
         setAllTodos(data.data);
       })
       .catch((error) => console.log(`error`, error));
   }, [lastActivity]);
 
-  console.log(`checked`, checked)
+  console.log(`checked`, checked);
   return (
     <div>
       <List className={classes.root}>
@@ -86,7 +85,11 @@ const TodosList = ({ lastActivity, setLastActivity }) => {
               <ListItemText id={labelId} primary={title} />
               <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="comments">
-                  <EditRoundedIcon />
+                  <UpdateTodo
+                    id={id}
+                    title={title}
+                    setLastActivity={setLastActivity}
+                  />
                 </IconButton>
                 <IconButton edge="end" aria-label="comments">
                   <DeleteTodo id={id} setLastActivity={setLastActivity} />

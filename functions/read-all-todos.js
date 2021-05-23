@@ -23,7 +23,7 @@ const handler = async (event) => {
       )
     );
 
-    // console.log(`result of all todos`, result);
+    console.log(`result of all todos`, result);
     return {
       statusCode: 200,
       body: JSON.stringify(result),

@@ -64,7 +64,7 @@ const AddTodo = ({ setLastActivity }) => {
           color="primary"
           value={todo.title}
           onChange={(e) => {
-            setTodo({ ...todo, title: e.target.value });
+            setTodo({ ...todo, title: e.target.value });  
           }}
           required
         />
@@ -75,7 +75,7 @@ const AddTodo = ({ setLastActivity }) => {
           color="secondary"
           className={classes.button}
         >
-          AddTodo
+          Add Todo
         </Button>
       </form>
     </div>

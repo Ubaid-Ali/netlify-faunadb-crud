@@ -15,7 +15,7 @@ const handler = async (event, context, callback) => {
     );
     return callback(null, {
       statusCode: 200,
-      body: JSON.stringify({ id: todoId }),
+      body: JSON.stringify({ id: result.ref.id }),
     });
   } catch (error) {
     console.log(`Something wrong in Function "todo-delete"!`);
