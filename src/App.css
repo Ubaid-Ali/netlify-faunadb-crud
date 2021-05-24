@@ -14,10 +14,16 @@
 }
 
 .App-container {
-  padding: 5%;
+  padding: 0 5%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
+  /* margin-top: 30px; */
   font-size: calc(10px + 2vmin);
+}
+
+.header-text {
+  padding: 0 5%;
+  color: lightpink;
+  text-align: center;
 }

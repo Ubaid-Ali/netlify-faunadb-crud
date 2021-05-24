@@ -31,19 +31,24 @@ const AddTodo = ({ setLastActivity }) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(`New todo is going to add`);
-    fetch("/.netlify/functions/todo-create", {
-      method: "post",
-      body: JSON.stringify(todo),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(`Todo Added: Successfully!`);
-        setLastActivity(data.messageId);
+    if (todo.title === "") {
+      alert("Please add some text!");
+    } else {
+      console.log(`New todo is going to add`);
+      fetch("/.netlify/functions/todo-create", {
+        method: "post",
+        body: JSON.stringify(todo),
       })
-      .catch((error) =>
-        console.log(`Somthing wrong when trying Add Todo`, error)
-      );
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(`Todo Added: Successfully!`);
+          setLastActivity(data.messageId);
+        })
+        .catch((error) =>
+          console.log(`Somthing wrong when trying Add Todo`, error)
+        );
+    }
+    setTodo({ ...todo, title: "" });
   };
 
   // RETRUN
@@ -64,7 +69,7 @@ const AddTodo = ({ setLastActivity }) => {
           color="primary"
           value={todo.title}
           onChange={(e) => {
-            setTodo({ ...todo, title: e.target.value });  
+            setTodo({ ...todo, title: e.target.value });
           }}
           required
         />

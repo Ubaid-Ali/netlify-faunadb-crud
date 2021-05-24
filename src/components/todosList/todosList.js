@@ -20,13 +20,11 @@ const useStyles = makeStyles((theme) => ({
     // maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
 }));
-
-// Api
-export const TodoListFetcher = async () => {
-  const response = await fetch("/.netlify/functions/read-all-todos");
-  return await response.json();
-};
 
 // Main Component Start
 const TodosList = ({ lastActivity, setLastActivity }) => {
@@ -44,16 +42,22 @@ const TodosList = ({ lastActivity, setLastActivity }) => {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
     setChecked(newChecked);
   };
 
   useEffect(() => {
-    TodoListFetcher()
-      .then((data) => {
-        setAllTodos(data.data);
-      })
-      .catch((error) => console.log(`error`, error));
+    const TodoListFetcher = async () => {
+      return fetch("/.netlify/functions/read-all-todos")
+        .then((response) => response.json())
+        .then((data) => {
+          setAllTodos(data.data);
+        })
+        .catch((error) => {
+          console.log(`error`, error);
+        });
+    };
+
+    TodoListFetcher();
   }, [lastActivity]);
 
   // Main Component Return
