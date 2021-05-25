@@ -17,7 +17,6 @@ import UpdateTodo from "../updataTodo/updataTodo";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "80%",
-    // maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
   backdrop: {
@@ -33,7 +32,7 @@ const TodosList = ({ lastActivity, setLastActivity }) => {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([0]);
 
-  const handleToggle = (todo_id) => () => {
+  const handleCompleted = (todo_id) => () => {
     const currentIndex = checked.indexOf(todo_id);
     const newChecked = [...checked];
 
@@ -75,7 +74,7 @@ const TodosList = ({ lastActivity, setLastActivity }) => {
               role={undefined}
               dense
               button
-              onClick={handleToggle(id)}
+              onClick={handleCompleted(id)}
             >
               <ListItemIcon>
                 <Checkbox

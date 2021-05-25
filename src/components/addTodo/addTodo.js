@@ -27,6 +27,7 @@ const AddTodo = ({ setLastActivity }) => {
   const [todo, setTodo] = useState({
     title: "",
     completed: false,
+    id: ""
   });
 
   const submitHandler = (event) => {
@@ -41,7 +42,7 @@ const AddTodo = ({ setLastActivity }) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(`Todo Added: Successfully!`);
+          console.log(`Todo Added: Successfully!`, data);
           setLastActivity(data.messageId);
         })
         .catch((error) =>
@@ -66,7 +67,7 @@ const AddTodo = ({ setLastActivity }) => {
           id="outlined-secondary"
           label="Type here"
           variant="outlined"
-          color="primary"
+          color="secondary"
           value={todo.title}
           onChange={(e) => {
             setTodo({ ...todo, title: e.target.value });

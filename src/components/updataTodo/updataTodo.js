@@ -14,11 +14,11 @@ const UpdataTodo = ({ id, title, setLastActivity }) => {
   const [open, setOpen] = useState(false);
   const [userInput, setUserInput] = useState("");
 
-  const handleClickOpen = () => {
+  const handleClickOpenEditor = () => {
     setOpen(true);
   };
 
-  const handleClose = (e) => {
+  const handleCloseEditor = (e) => {
     const saveButton = e.target.innerHTML;
     if (saveButton === "Save") {
       updateRequest();
@@ -30,7 +30,7 @@ const UpdataTodo = ({ id, title, setLastActivity }) => {
 
   // API
   const updateRequest = () => {
-    console.log(`Todo is going to Update!`, id, title);
+    console.log(`Todo is going to Update!`);
     fetch("/.netlify/functions/todo-update", {
       method: "post",
       body: JSON.stringify({
@@ -40,22 +40,22 @@ const UpdataTodo = ({ id, title, setLastActivity }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(`Todo Updated: result!`);
+        console.log(`Todo Updated!`);
         setLastActivity(result);
       });
   };
 
   return (
     <>
-      <EditRoundedIcon onClick={handleClickOpen}></EditRoundedIcon>
+      <EditRoundedIcon onClick={handleClickOpenEditor}></EditRoundedIcon>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={handleCloseEditor}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Todo Editing Mode</DialogTitle>
         <DialogContent>
-          <DialogContentText>{title}</DialogContentText>
+          <DialogContentText>This todo is about to change: <br /> {title}</DialogContentText>
           <TextField
             value={userInput}
             onChange={(e) => {
@@ -70,10 +70,10 @@ const UpdataTodo = ({ id, title, setLastActivity }) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleCloseEditor} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleCloseEditor} color="primary">
             Save
           </Button>
         </DialogActions>
