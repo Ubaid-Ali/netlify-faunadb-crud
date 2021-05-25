@@ -19,7 +19,7 @@ const handler = async (event, context, callback) => {
     console.log(`Todo Updated Sucessfully!`, result.ref.id);
     return callback(null, {
       statusCode: 200,
-      body: JSON.stringify({ messageId: result.ref.id }),
+      body: JSON.stringify({id: result.ref.id}),
     });
   } catch (error) {
     console.log(`Something wrong in Function "todo-update"!`, error);

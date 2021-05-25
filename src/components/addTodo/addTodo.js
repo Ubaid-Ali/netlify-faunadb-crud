@@ -20,14 +20,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddTodo = ({ setLastActivity }) => {
+const AddTodo = ({ allTodos, setAllTodos }) => {
   const classes = useStyles();
 
   // ON-CHANGE STATE
   const [todo, setTodo] = useState({
     title: "",
     completed: false,
-    id: ""
   });
 
   const submitHandler = (event) => {
@@ -42,14 +41,14 @@ const AddTodo = ({ setLastActivity }) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(`Todo Added: Successfully!`, data);
-          setLastActivity(data.messageId);
+          console.log(`Todo Added: Successfully!`);
+          setAllTodos((d) => [...d, data]);
         })
         .catch((error) =>
           console.log(`Somthing wrong when trying Add Todo`, error)
         );
     }
-    setTodo({ ...todo, title: "" });
+    setTodo({ ...todo, title: "", ts: "" });
   };
 
   // RETRUN

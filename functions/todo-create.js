@@ -15,7 +15,7 @@ const handler = async (event, context, callback) => {
     );
     return callback(null, {
       statusCode: 200,
-      body: JSON.stringify({ TodoRef: result.ref.id }),
+      body: JSON.stringify(result),
     });
   } catch (error) {
     console.log(`Something wrong in Function "todo-create"!`);

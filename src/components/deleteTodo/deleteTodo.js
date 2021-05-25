@@ -1,7 +1,7 @@
 import React from "react";
 import DeleteForeverRoundedIcon from "@material-ui/icons/DeleteForeverRounded";
 
-const DeleteTodo = ({ id, setLastActivity }) => {
+const DeleteTodo = ({ id, setAllTodos }) => {
   const deleteTodo = () => {
     fetch(`/.netlify/functions/todo-delete`, {
       method: "post",
@@ -10,7 +10,11 @@ const DeleteTodo = ({ id, setLastActivity }) => {
       .then((response) => response.json())
       .then((result) => {
         console.log(`Todo Deleted: Successfully!`);
-        setLastActivity(result);
+        setAllTodos((state) => {
+          return state.filter((t) => {
+            return t.ref[`@ref`].id !== result.id;
+          });
+        });
       });
   };
 

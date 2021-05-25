@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // material ui
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
@@ -11,7 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 // component
 import DeleteTodo from "../deleteTodo/deleteTodo";
-import UpdateTodo from "../updataTodo/updataTodo";
+import UpdateTodo from "../updateTodo/updateTodo";
 
 // material ui css
 const useStyles = makeStyles((theme) => ({
@@ -26,11 +26,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // Main Component Start
-const TodosList = ({ lastActivity, setLastActivity }) => {
-  const [allTodos, setAllTodos] = useState([]);
-
+const TodosList = ({ allTodos, setAllTodos }) => {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState([0]);
+  const [checked, setChecked] = useState([0]);
 
   const handleCompleted = (todo_id) => () => {
     const currentIndex = checked.indexOf(todo_id);
@@ -43,21 +41,6 @@ const TodosList = ({ lastActivity, setLastActivity }) => {
     }
     setChecked(newChecked);
   };
-
-  useEffect(() => {
-    const TodoListFetcher = async () => {
-      return fetch("/.netlify/functions/read-all-todos")
-        .then((response) => response.json())
-        .then((data) => {
-          setAllTodos(data.data);
-        })
-        .catch((error) => {
-          console.log(`error`, error);
-        });
-    };
-
-    TodoListFetcher();
-  }, [lastActivity]);
 
   // Main Component Return
   return (
@@ -88,14 +71,10 @@ const TodosList = ({ lastActivity, setLastActivity }) => {
               <ListItemText id={labelId} primary={title} />
               <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="comments">
-                  <UpdateTodo
-                    id={id}
-                    title={title}
-                    setLastActivity={setLastActivity}
-                  />
+                  <UpdateTodo id={id} title={title} setAllTodos={setAllTodos} />
                 </IconButton>
                 <IconButton edge="end" aria-label="comments">
-                  <DeleteTodo id={id} setLastActivity={setLastActivity} />
+                  <DeleteTodo id={id} setAllTodos={setAllTodos} />
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>

@@ -10,7 +10,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-const UpdataTodo = ({ id, title, setLastActivity }) => {
+const UpdataTodo = ({ id, title, setAllTodos }) => {
   const [open, setOpen] = useState(false);
   const [userInput, setUserInput] = useState("");
 
@@ -40,8 +40,24 @@ const UpdataTodo = ({ id, title, setLastActivity }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(`Todo Updated!`);
-        setLastActivity(result);
+        setAllTodos((todo_arr) => {
+          return todo_arr.map((todo) => {
+            if (todo.ref[`@ref`].id === result.id) {
+              // update todo
+              return {
+                ...todo,
+                data: {
+                  ...todo.data,
+                  title: userInput,
+                },
+              };
+            } else {
+              return { ...todo };
+            }
+          });
+        });
+        console.log(`todo updated successsfully!`);
+        setUserInput("")
       });
   };
 
@@ -55,7 +71,9 @@ const UpdataTodo = ({ id, title, setLastActivity }) => {
       >
         <DialogTitle id="form-dialog-title">Todo Editing Mode</DialogTitle>
         <DialogContent>
-          <DialogContentText>This todo is about to change: <br /> {title}</DialogContentText>
+          <DialogContentText>
+            This todo is going to change: <br /> {title}
+          </DialogContentText>
           <TextField
             value={userInput}
             onChange={(e) => {
